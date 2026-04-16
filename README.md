@@ -1,90 +1,57 @@
-# AI Receptionist Chatbot
+# 🤖 AI Receptionist Chatbot
 
-FastAPI + Supabase + OpenAI app that scrapes a website, stores semantic vectors, and answers questions using only website data.
+## 📌 Overview
+The AI Receptionist Chatbot is a web application that scrapes a business website and answers customer questions automatically using AI.
 
-## Features
+It acts like a virtual receptionist by understanding website content and responding to user queries in real time.
 
-- Enter a website URL and scrape public pages (same domain).
-- Chunk + embed content using OpenAI `text-embedding-3-small`.
-- Store vectors in Supabase (`pgvector` / `vector` extension).
-- Ask questions in a web chat UI.
-- Retrieve relevant chunks via vector similarity search and answer with `gpt-4o-mini`.
-- Fallback answer when info is not present:
-  - `I can't find that info, please contact the business directly.`
-- Sends Discord webhook notification when a chat session starts.
+---
 
-## Project structure
+## 🚀 Live Demo
+https://ai-receptionist-production-29c1.up.railway.app/
 
-- `app/main.py` - FastAPI routes
-- `app/services.py` - scraper, embeddings, Supabase, answer generation, Discord notifications
-- `static/` - plain HTML/CSS/JS frontend
-- `supabase/schema.sql` - database schema + vector match RPC
+---
 
-## 1) Supabase setup (pgvector)
+## 🧠 What This Project Does
+- 🌐 Scrapes content from any public website  
+- 🤖 Uses AI to understand and process the content  
+- 💬 Allows users to ask questions about the website  
+- ⚡ Provides fast and intelligent answers  
+- 📩 Can send responses via Discord webhook  
 
-1. Create a Supabase project.
-2. Open SQL Editor in Supabase dashboard.
-3. Run `supabase/schema.sql`.
-4. This script:
-   - Enables vector extension with `create extension if not exists vector;`
-   - Creates `scraped_sites`
-   - Creates `site_content` with `embedding vector(1536)`
-   - Creates `match_site_content(...)` RPC function for semantic search
+---
 
-## 2) Environment variables
+## 🛠️ Tech Stack
+- Python (FastAPI)  
+- OpenAI API  
+- Supabase (Database)  
+- Railway (Deployment)  
+- Web scraping tools (BeautifulSoup / Requests)
 
-Copy `.env.example` to `.env` and fill:
+---
 
-- `OPENAI_API_KEY=YOUR_KEY`
-- `SUPABASE_URL=YOUR_URL`
-- `SUPABASE_KEY=YOUR_KEY`
-- `DISCORD_WEBHOOK_URL=YOUR_WEBHOOK`
-- `PORT=8000`
-
-## 3) Run locally
+## ⚙️ Setup Instructions
 
 ```bash
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
+# 1. Clone the repository
+git clone https://github.com/YOUR-USERNAME/ai-receptionist.git
+cd ai-receptionist
 
+# 2. Install dependencies
 pip install -r requirements.txt
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
 
-Open [http://localhost:8000](http://localhost:8000)
+# 3. Create a .env file and add your keys
+OPENAI_API_KEY=your_openai_api_key
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
 
-## 4) Usage flow
+### 🔧 What you must change:
+Replace:
+``` id="fix1"
+YOUR-USERNAME
 
-1. Enter website URL and click **Scrape Website**.
-2. Wait for scraping + embedding to finish.
-3. Ask business questions in chat.
-4. Answers are grounded on matching website chunks only.
+# 4. Run the application
+uvicorn main:app --reload
 
-## 5) Deploy to GitHub
-
-```bash
-git init
-git add .
-git commit -m "Initial AI receptionist chatbot"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/ai-receptionist.git
-git push -u origin main
-```
-
-## 6) Deploy to Railway
-
-1. Push code to GitHub.
-2. In Railway, create **New Project** -> **Deploy from GitHub repo**.
-3. Select your repository.
-4. Add env vars from `.env` in Railway Variables tab.
-5. Railway will use `Procfile`:
-   - `web: uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}`
-6. Deploy and open the generated Railway public URL.
-
-## Notes
-
-- App binds to `0.0.0.0` and reads `PORT` from environment for cloud deployment.
-- Scraper currently follows same-domain links only and stores plain text content from each page.
+# 5. Open in browser
+http://127.0.0.1:8000
