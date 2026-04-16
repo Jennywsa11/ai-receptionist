@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Receptionist</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="card">
+        <h1>AI Receptionist</h1>
+        <p class="subtitle">Scrape a website and chat with its business knowledge.</p>
+
+        <div class="scrape-row">
+          <input id="urlInput" type="url" placeholder="https://example.com" />
+          <button id="scrapeBtn">Scrape Website</button>
+        </div>
+        <p id="scrapeStatus" class="status">Ready</p>
+      </section>
+
+      <section id="chatCard" class="card hidden">
+        <h2>Chat</h2>
+        <div id="chatBox" class="chat-box"></div>
+        <form id="chatForm" class="chat-row">
+          <input id="questionInput" type="text" placeholder="Ask a question..." required />
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
